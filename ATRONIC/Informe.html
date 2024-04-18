@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF</title>
+
+    <!-- Agregar estilos CSS -->
+    <style>
+       /* Estilos generales */
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: auto;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #ffff;
+            
+        }
+        /* Encabezado */
+        .logo {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto; 
+        }
+        .company-title {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+        /* Información de la empresa */
+        .company-info {
+            margin-top: 20px;
+            color: #666;
+        }
+        /* Tabla de productos */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0E6D66;
+            color: #000000;
+            font-weight: bold;
+        }
+        /* Total */
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        /* Nota */
+        .note {
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+            color: #999;
+        }
+
+        .pdf-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0E6D66;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pdf-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+     <div class="container">
+        
+        <img src="./img/image.png" alt="Logo de la empresa" class="logo">
+        <h1 class="company-title">TRANIC</h1>
+        <p class="company-info">
+            Av. Winston Churchill 00000, Ensanche Piantini<br>
+            Santo Domingo, DN 10608<br>
+            República Dominicana
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Transacción</th>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>32525</td>
+                    <td>2024-04-18</td>
+                    <td>Ingreso</td>
+                    <td>Salario mensual</td>
+                    <td>2500$</td>
+                </tr>
+                
+                <tr>
+                    <td>26575</td>
+                    <td>2024-04-19</td>
+                    <td>Gasto</td>
+                    <td>Alquiler</td>
+                    <td>800$</td>
+                </tr>
+
+                <tr>
+                    <td>34030</td>
+                    <td>2024-04-20</td>
+                    <td>Ingreso</td>
+                    <td>Venta de productos</td>
+                    <td>1200$</td>
+                </tr>
+
+                <tr>
+                    <td>48462</td>
+                    <td>2024-04-21</td>
+                    <td>Gasto</td>
+                    <td>Facturas de servicios</td>
+                    <td>300$</td>
+                </tr>
+
+                <tr>
+                    <td>59203</td>
+                    <td>2024-04-22</td>
+                    <td>Ingreso</td>
+                    <td>Reembolso de gastos</td>
+                    <td>500$</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="total">
+            
+            <p>TOTAL: $5300</p>
+        </div>
+        <p class="note">Informe de transacciones</p>
+    </div>
+
+    <button class="pdf-button" onclick="genPDF()">Generar informe</button>
+
+    <!-- Incluir la biblioteca html2pdf -->
+    <script src="../node_modules/html2pdf.js/dist/html2pdf.bundle.min.js"></script>
+    
+    <!-- Script para generar el PDF -->
+    <script>
+        function genPDF() {
+            // Seleccionar el elemento que contiene el contenido que deseas convertir a PDF
+            var element = document.querySelector('.container');
+
+            // Opciones de configuración para la generación de PDF
+            var opt = {
+                margin:       1,
+                filename:     'Informe_Transacciones.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'pt', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Convierte el contenido HTML a PDF utilizando html2pdf
+            html2pdf().from(element).set(opt).save();
+        }
+    </script>
+</body>
+</html>
